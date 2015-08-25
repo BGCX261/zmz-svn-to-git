@@ -1,0 +1,60 @@
+<?php $projectConfig = Zend_Registry::get('projectConfig'); ?>
+
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php
+        $this->headTitle()->append($projectConfig->title);
+        $this->headTitle()->setSeparator(' - ');
+        $this->title ? $this->headTitle()->prepend($this->title) : null;
+        ?>
+
+        <?= $this->headTitle(); ?>       
+        <?php
+        $this->headLink()
+                ->appendStylesheet($this->baseUrl() . '/css/global.css', 'all');
+
+        $this->headScript()
+                ->appendFile($this->baseUrl() . '/js/custom.js');
+
+        $this->jQuery()
+//                ->setLocalPath($this->baseUrl() . '/jquery/js/jquery-1.4.2.min.js')
+//                ->setUiLocalPath($this->baseUrl() . '/jquery/js/jquery-ui-1.8.6.custom.min.js')
+                ->uiEnable();
+        ?>
+
+        <?php $this->captureJavascript()->start() ?>
+        <script type="text/javascript">
+
+
+        </script>
+        <?php $this->addJquery($this->captureJavascript()->end()) ?>
+
+        <?php $this->captureJavascript()->start() ?>
+        <script type="text/javascript">
+
+        </script>
+        <?php $this->addJquery($this->captureJavascript()->end()) ?>
+        <?= $this->jQuery() // must be called before headScript() ?>
+        <?= $this->headScript() ?>
+        <?= $this->headLink() ?>
+
+    </head>
+    <body>
+        <div id="header" style="background-color: #EEEEEE; height: 30px;">
+            <div id="header-logo" style="float: left">
+                <b><?= $projectConfig->title ?></b>
+            </div>
+            <div id="header-navigation" style="float: right">
+                <a href="<?php
+        echo $this->url(
+                array('controller' => 'guestbook'), 'default', true)
+        ?>">Guestbook</a>
+            </div>
+        </div>
+
+        <?php echo $this->layout()->content ?>
+
+    </body>
+</html>
